@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEFNA — لفنا | حقائب تليق بك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #FAF6F1;
+    --burgundy: #6B0F1A;
+    --burgundy-dark: #4A0A12;
+    --burgundy-light: #8B1A3A;
+    --rose: #C2736A;
+    --gold: #C9A96E;
+    --gold-light: #E2C98A;
+    --cream: #FAF6F1;
+    --cream-dark: #F0E8DF;
+    --text: #2C1810;
+    --text-light: #7A5C52;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--burgundy);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(107,15,26,0.97);
+    backdrop-filter: blur(16px);
+    padding: 12px 48px;
+    box-shadow: 0 4px 40px rgba(107,15,26,0.3);
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav-logo-circle {
+    width: 52px; height: 52px;
+    background: var(--burgundy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid rgba(201,169,110,0.4);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .nav-logo-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(201,169,110,0.3);
+  }
+  .nav-logo-svg {
+    width: 38px; height: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  .nav-cta {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 13px;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 8px 22px;
+    border-radius: 40px;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    cursor: none;
+  }
+  .nav-cta:hover {
+    background: var(--gold);
+    color: var(--burgundy-dark);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--burgundy-dark);
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .hero-bg-texture {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(139,26,58,0.5) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(201,169,110,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 80px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 180px;
+    line-height: 0.6;
+    color: rgba(201,169,110,0.12);
+    position: absolute;
+    top: 130px;
+    right: 40px;
+    font-style: italic;
+    pointer-events: none;
+  }
+
+  .hero-headline {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(38px, 5vw, 68px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.5s forwards;
+    direction: rtl;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1em;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 48px;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.7s forwards;
+  }
+
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 15px;
+    color: var(--white);
+    background: transparent;
+    border: 1.5px solid var(--gold);
+    padding: 16px 40px;
+    border-radius: 60px;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    width: fit-content;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.9s forwards, shimmerPulse 3s ease 2s infinite;
+    transition: color 0.4s ease, transform 0.3s ease;
+  }
+  .hero-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+  }
+  .hero-btn:hover::before { transform: translateX(0); }
+  .hero-btn:hover { color: var(--burgundy-dark); transform: translateY(-2px); }
+  .hero-btn span { position: relative; z-index: 1; }
+  .hero-btn .arrow { position: relative; z-index: 1; font-size: 18px; }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 64px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.1s forwards;
+  }
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-stat-label {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Hero Right */
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 60px 80px 20px;
+  }
+
+  .hero-img-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 0.6s forwards;
+  }
+
+  .hero-gold-circle {
+    position: absolute;
+    width: 380px; height: 380px;
+    border: 1px solid rgba(201,169,110,0.25);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateSlow 20s linear infinite;
+  }
+  .hero-gold-circle-2 {
+    position: absolute;
+    width: 460px; height: 460px;
+    border: 1px solid rgba(201,169,110,0.1);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateSlow 30s linear infinite reverse;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+    border-radius: 200px 200px 120px 120px;
+    display: block;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 40px 80px rgba(74,10,18,0.5), 0 0 0 1px rgba(201,169,110,0.15);
+  }
+
+  .hero-img-badge {
+    position: absolute;
+    bottom: 30px;
+    left: -20px;
+    background: var(--gold);
+    color: var(--burgundy-dark);
+    padding: 14px 20px;
+    border-radius: 16px;
+    z-index: 3;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: float 3s ease-in-out infinite;
+  }
+  .hero-img-badge .badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    display: block;
+    line-height: 1;
+  }
+  .hero-img-badge .badge-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 10px;
+    font-weight: 500;
+    display: block;
+    direction: rtl;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-section {
+    background: var(--burgundy);
+    padding: 18px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marqueeScroll 22s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    padding: 0 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.85);
+    font-style: italic;
+    flex-shrink: 0;
+  }
+  .marquee-dot {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  /* ── COLLECTION ── */
+  #collection {
+    padding: 100px 60px;
+    background: var(--bg);
+    position: relative;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .section-title-ar {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 600;
+    color: var(--burgundy-dark);
+    display: block;
+    direction: rtl;
+    line-height: 1.2;
+  }
+  .section-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-light);
+    display: block;
+    margin-top: 8px;
+    letter-spacing: 2px;
+  }
+  .section-divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 20px auto 0;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .product-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(44,24,16,0.06);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    cursor: none;
+  }
+  .product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(107,15,26,0.15);
+  }
+
+  .product-img-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+  }
+  .product-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .product-card:hover .product-img { transform: scale(1.06); }
+
+  .product-tag {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--burgundy);
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 30px;
+  }
+
+  .product-add-btn {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--burgundy);
+    color: var(--gold-light);
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 14px;
+    padding: 16px;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: none;
+    border: none;
+    width: 100%;
+    letter-spacing: 0.5px;
+  }
+  .product-card:hover .product-add-btn { transform: translateY(0); }
+
+  .product-info {
+    padding: 20px 24px 24px;
+    direction: rtl;
+  }
+  .product-name {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .product-desc {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+  .product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .product-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--burgundy);
+  }
+  .product-price span {
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text-light);
+  }
+  .product-wishlist {
+    width: 36px; height: 36px;
+    border: 1px solid var(--cream-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: none;
+    transition: all 0.3s ease;
+    background: none;
+    color: var(--rose);
+    font-size: 16px;
+  }
+  .product-wishlist:hover {
+    background: var(--rose);
+    color: white;
+    border-color: var(--rose);
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 100px 60px;
+    background: var(--burgundy-dark);
+    position: relative;
+    overflow: hidden;
+    direction: rtl;
+  }
+
+  .about-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 20% 50%, rgba(139,26,58,0.4) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .about-deco {
+    position: relative;
+    height: 520px;
+  }
+  .about-rect {
+    position: absolute;
+    top: 40px; left: 40px; right: 0; bottom: 0;
+    background: rgba(201,169,110,0.08);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 12px;
+  }
+  .about-letter {
+    position: absolute;
+    top: -20px; right: -10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 280px;
+    font-style: italic;
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,169,110,0.2);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .about-img {
+    position: absolute;
+    inset: 0;
+    width: 85%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    z-index: 2;
+    box-shadow: -20px 20px 60px rgba(0,0,0,0.4);
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 110px; height: 110px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .about-badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--burgundy-dark);
+    line-height: 1;
+  }
+  .about-badge-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 9px;
+    color: var(--burgundy-dark);
+    text-align: center;
+    direction: rtl;
+  }
+
+  .about-content { color: var(--white); }
+  .about-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .about-title {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(32px, 4vw, 50px);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    direction: rtl;
+  }
+  .about-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 48px;
+    direction: rtl;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .about-stat {
+    border-top: 1px solid rgba(201,169,110,0.25);
+    padding-top: 20px;
+  }
+  .about-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .about-stat-label {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    direction: rtl;
+    display: block;
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials {
+    padding: 100px 60px;
+    background: var(--cream-dark);
+    position: relative;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 36px 32px;
+    position: relative;
+    direction: rtl;
+    box-shadow: 0 4px 20px rgba(44,24,16,0.06);
+    border: 1px solid rgba(201,169,110,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 50px rgba(107,15,26,0.1);
+  }
+
+  .testimonial-quote {
+    position: absolute;
+    top: 20px;
+    left: 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    color: rgba(107,15,26,0.06);
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .testimonial-stars {
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+    display: block;
+  }
+  .testimonial-text {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text);
+    margin-bottom: 28px;
+    direction: rtl;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    direction: rtl;
+  }
+  .testimonial-avatar {
+    width: 44px; height: 44px;
+    background: var(--burgundy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 16px;
+    color: var(--gold-light);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .testimonial-name {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    direction: rtl;
+  }
+  .testimonial-city {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    color: var(--text-light);
+    font-style: italic;
+    display: block;
+  }
+
+  /* ── INSTAGRAM ── */
+  #instagram {
+    padding: 80px 60px;
+    background: var(--bg);
+    text-align: center;
+  }
+  .insta-handle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .insta-title {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    color: var(--burgundy-dark);
+    font-weight: 600;
+    margin-bottom: 48px;
+    direction: rtl;
+  }
+
+  .insta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .insta-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: none;
+  }
+  .insta-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .insta-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(107,15,26,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .insta-icon {
+    width: 36px; height: 36px;
+    fill: white;
+  }
+  .insta-item:hover img { transform: scale(1.08); }
+  .insta-item:hover .insta-overlay { opacity: 1; }
+
+  /* ── NEWSLETTER ── */
+  #newsletter {
+    background: var(--burgundy-dark);
+    padding: 100px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #newsletter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(139,26,58,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .newsletter-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .newsletter-title {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(30px, 4vw, 52px);
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 16px;
+    direction: rtl;
+    position: relative;
+    z-index: 1;
+  }
+  .newsletter-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+  .newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    border: 1.5px solid var(--gold);
+    border-radius: 60px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .newsletter-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 16px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--white);
+    outline: none;
+    direction: ltr;
+  }
+  .newsletter-input::placeholder { color: rgba(255,255,255,0.3); }
+  .newsletter-btn {
+    background: var(--gold);
+    border: none;
+    padding: 14px 28px;
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--burgundy-dark);
+    cursor: none;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+    direction: rtl;
+  }
+  .newsletter-btn:hover { background: var(--gold-light); }
+  .newsletter-privacy {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #2C0A10;
+    padding: 60px 60px 40px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  .footer-logo-circle {
+    width: 70px; height: 70px;
+    background: var(--burgundy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(201,169,110,0.3);
+    margin-bottom: 16px;
+  }
+  .footer-logo-circle svg { width: 50px; height: auto; }
+
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 2px;
+  }
+
+  .footer-divider {
+    width: 60px; height: 1px;
+    background: rgba(201,169,110,0.25);
+    margin: 32px auto;
+  }
+
+  .footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+  .footer-social-btn {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: none;
+    transition: all 0.3s ease;
+    background: transparent;
+    text-decoration: none;
+  }
+  .footer-social-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .footer-social-btn svg {
+    width: 18px; height: 18px;
+    fill: rgba(255,255,255,0.6);
+    transition: fill 0.3s ease;
+  }
+  .footer-social-btn:hover svg { fill: var(--burgundy-dark); }
+
+  .footer-copy {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes rotateSlow {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes shimmerPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0); }
+    50% { box-shadow: 0 0 0 8px rgba(201,169,110,0.15); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 40px 80px; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-deco { display: none; }
+    .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    .insta-grid { grid-template-columns: repeat(3, 1fr); }
+    .insta-item:nth-child(4),
+    .insta-item:nth-child(5) { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    nav.scrolled { padding: 12px 24px; }
+    .nav-links { display: none; }
+    .hero-left { padding: 100px 24px 60px; }
+    #collection, #about, #testimonials, #instagram, #newsletter { padding: 70px 24px; }
+    footer { padding: 50px 24px 30px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr; gap: 16px; }
+    .insta-grid { grid-template-columns: repeat(2, 1fr); }
+    .insta-item:nth-child(5) { display: none; }
+    .hero-stats { gap: 24px; }
+    .newsletter-form { flex-direction: column; border-radius: 16px; }
+    .newsletter-btn { border-radius: 0 0 14px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" aria-label="LEFNA">
+    <div class="nav-logo-circle">
+      <!-- Recreated LEFNA logo in SVG -->
+      <svg class="nav-logo-svg" viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Arabic لفنا -->
+        <text x="40" y="16" font-family="serif" font-size="13" fill="#C9A96E" text-anchor="middle" font-style="italic">لفنا</text>
+        <!-- LEFNA text -->
+        <text x="40" y="36" font-family="serif" font-size="20" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="1">LEFNA</text>
+        <!-- STORE small -->
+        <text x="40" y="46" font-family="sans-serif" font-size="5.5" fill="rgba(255,255,255,0.5)" text-anchor="middle" letter-spacing="3">STORE</text>
+      </svg>
+    </div>
+  </a>
+
+  <ul class="nav-links" dir="ltr">
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#newsletter">Contact</a></li>
+  </ul>
+
+  <a href="#collection" class="nav-cta">تسوقي الآن</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-bg-texture"></div>
+  <div class="hero-grain"></div>
+
+  <div class="hero-left">
+    <div class="hero-quote-mark">"</div>
+    <span class="hero-tag">New Collection 2026 — Algiers</span>
+    <h1 class="hero-headline" dir="rtl">
+      تحملين العالم<br><em>بأناقة</em>
+    </h1>
+    <p class="hero-sub">Crafted for the woman who knows.</p>
+    <a href="#collection" class="hero-btn">
+      <span>اكتشفي المجموعة</span>
+      <span class="arrow">←</span>
+    </a>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-num">+500</span>
+        <span class="hero-stat-label" dir="rtl">عميلة سعيدة</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">+30</span>
+        <span class="hero-stat-label" dir="rtl">تصميم حصري</span>
+      </div>
+      <div>
+        <span class="hero-stat-num">100%</span>
+        <span class="hero-stat-label" dir="rtl">جودة فاخرة</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-wrapper">
+      <div class="hero-gold-circle"></div>
+      <div class="hero-gold-circle-2"></div>
+      <img 
+        class="hero-img"
+        src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&h=1000&fit=crop&crop=center"
+        alt="LEFNA Luxury Handbag"
+        loading="eager"
+      >
+      <div class="hero-img-badge">
+        <span class="badge-num">2026</span>
+        <span class="badge-text">مجموعة جديدة</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <!-- Repeat 4x for seamless loop -->
+    <div class="marquee-item">LEFNA<span class="marquee-dot"></span>حقائب فاخرة<span class="marquee-dot"></span>New Collection 2026<span class="marquee-dot"></span>لفنا<span class="marquee-dot"></span>Sacs de Luxe<span class="marquee-dot"></span>Made with Love<span class="marquee-dot"></span></div>
+    <div class="marquee-item">LEFNA<span class="marquee-dot"></span>حقائب فاخرة<span class="marquee-dot"></span>New Collection 2026<span class="marquee-dot"></span>لفنا<span class="marquee-dot"></span>Sacs de Luxe<span class="marquee-dot"></span>Made with Love<span class="marquee-dot"></span></div>
+    <div class="marquee-item">LEFNA<span class="marquee-dot"></span>حقائب فاخرة<span class="marquee-dot"></span>New Collection 2026<span class="marquee-dot"></span>لفنا<span class="marquee-dot"></span>Sacs de Luxe<span class="marquee-dot"></span>Made with Love<span class="marquee-dot"></span></div>
+    <div class="marquee-item">LEFNA<span class="marquee-dot"></span>حقائب فاخرة<span class="marquee-dot"></span>New Collection 2026<span class="marquee-dot"></span>لفنا<span class="marquee-dot"></span>Sacs de Luxe<span class="marquee-dot"></span>Made with Love<span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- ══ COLLECTION ══ -->
+<section id="collection">
+  <div class="section-header reveal">
+    <span class="section-label">Our Pieces</span>
+    <span class="section-title-ar">المجموعة المميزة</span>
+    <span class="section-title-en">Featured Pieces — Saison 2026</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="products-grid">
+    <!-- Card 1 -->
+    <div class="product-card reveal reveal-delay-1">
+      <div class="product-img-wrap">
+        <span class="product-tag">NEW</span>
+        <img class="product-img" src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=500&fit=crop" alt="حقيبة رينا">
+        <button class="product-add-btn">أضيفي للسلة — اطلبي الآن</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">حقيبة رينا</p>
+        <p class="product-desc">Rena Tote — Leather & Gold Chain</p>
+        <div class="product-footer">
+          <span class="product-price">5,800 <span>DA</span></span>
+          <button class="product-wishlist">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card reveal reveal-delay-2">
+      <div class="product-img-wrap">
+        <span class="product-tag">BEST SELLER</span>
+        <img class="product-img" src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=500&fit=crop" alt="حقيبة لمى">
+        <button class="product-add-btn">أضيفي للسلة — اطلبي الآن</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">حقيبة لمى</p>
+        <p class="product-desc">Lama Mini — Velvet & Pearl</p>
+        <div class="product-footer">
+          <span class="product-price">4,500 <span>DA</span></span>
+          <button class="product-wishlist">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="product-card reveal reveal-delay-3">
+      <div class="product-img-wrap">
+        <span class="product-tag">LIMITED</span>
+        <img class="product-img" src="https://images.unsplash.com/photo-1614179689702-355944cd0918?w=400&h=500&fit=crop" alt="حقيبة نور">
+        <button class="product-add-btn">أضيفي للسلة — اطلبي الآن</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">حقيبة نور</p>
+        <p class="product-desc">Nour Evening — Satin & Crystals</p>
+        <div class="product-footer">
+          <span class="product-price">7,200 <span>DA</span></span>
+          <button class="product-wishlist">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="product-card reveal reveal-delay-1">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=500&fit=crop" alt="حقيبة سارة">
+        <button class="product-add-btn">أضيفي للسلة — اطلبي الآن</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">حقيبة سارة</p>
+        <p class="product-desc">Sara Crossbody — Genuine Leather</p>
+        <div class="product-footer">
+          <span class="product-price">3,900 <span>DA</span></span>
+          <button class="product-wishlist">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="product-card reveal reveal-delay-2">
+      <div class="product-img-wrap">
+        <span class="product-tag">NEW</span>
+        <img class="product-img" src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&h=500&fit=crop" alt="حقيبة ياسمين">
+        <button class="product-add-btn">أضيفي للسلة — اطلبي الآن</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">حقيبة ياسمين</p>
+        <p class="product-desc">Yasmine Bucket — Suede Caramel</p>
+        <div class="product-footer">
+          <span class="product-price">6,100 <span>DA</span></span>
+          <button class="product-wishlist">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="product-card reveal reveal-delay-3">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?w=400&h=500&fit=crop" alt="حقيبة مريم">
+        <button class="product-add-btn">أضيفي للسلة — اطلبي الآن</button>
+      </div>
+      <div class="product-info">
+        <p class="product-name">حقيبة مريم</p>
+        <p class="product-desc">Maryam Clutch — Embossed Gold</p>
+        <div class="product-footer">
+          <span class="product-price">5,300 <span>DA</span></span>
+          <button class="product-wishlist">♡</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="about-bg"></div>
+  <div class="about-grid">
+    <div class="about-deco reveal">
+      <div class="about-letter">L</div>
+      <div class="about-rect"></div>
+      <img 
+        class="about-img"
+        src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=800&fit=crop"
+        alt="LEFNA Craftsmanship"
+      >
+      <div class="about-badge">
+        <span class="about-badge-num">2020</span>
+        <span class="about-badge-text">تأسست لفنا</span>
+      </div>
+    </div>
+
+    <div class="about-content reveal reveal-delay-2">
+      <span class="about-label">Our Story — قصتنا</span>
+      <h2 class="about-title">قصة<br>لفنا</h2>
+      <p class="about-text">
+        لفنا وُلدت من شغف حقيقي بالجمال والأناقة الجزائرية. نؤمن بأن الحقيبة ليست مجرد إكسسوار، بل هي تعبير عن شخصيتكِ ورقيّ ذوقكِ. كل تصميم عندنا يحمل روحاً خاصة، مصنوع بعناية فائقة ليلائم المرأة الحديثة التي تحمل العالم بأناقة وثقة.
+      </p>
+
+      <div class="about-stats">
+        <div class="about-stat">
+          <span class="about-stat-num">+500</span>
+          <span class="about-stat-label">عميلة سعيدة</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">100%</span>
+          <span class="about-stat-label">جودة فاخرة</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-num">+30</span>
+          <span class="about-stat-label">تصميم حصري</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section id="testimonials">
+  <div class="section-header reveal">
+    <span class="section-label">Client Reviews</span>
+    <span class="section-title-ar">ماذا قالت عنا</span>
+    <span class="section-title-en">What our clients say</span>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal reveal-delay-1">
+      <span class="testimonial-quote">"</span>
+      <span class="testimonial-stars">★★★★★</span>
+      <p class="testimonial-text">حقيبة رينا تجاوزت كل توقعاتي! الجودة رائعة والتصميم أنيق جداً. كل مرة أحملها يسألني الجميع عنها. سأشتري مجموعة كاملة!</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">ي</div>
+        <div>
+          <span class="testimonial-name">ياسمين بن علي</span>
+          <span class="testimonial-city">الجزائر العاصمة</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-2">
+      <span class="testimonial-quote">"</span>
+      <span class="testimonial-stars">★★★★★</span>
+      <p class="testimonial-text">أخيراً ماركة جزائرية تنافس الماركات العالمية. لفنا فخر لكل جزائرية. الحقيبة وصلتني مغلفة بشكل فاخر جداً، تجربة تسوق ممتازة من أ إلى ي.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">س</div>
+        <div>
+          <span class="testimonial-name">سارة مزياني</span>
+          <span class="testimonial-city">وهران</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-3">
+      <span class="testimonial-quote">"</span>
+      <span class="testimonial-stars">★★★★★</span>
+      <p class="testimonial-text">قدمت لفنا كهدية لصديقتي وكانت سعيدة جداً. الحقيبة لمى الصغيرة مميزة ومختلفة عن كل ما رأيته. بصراحة هدية مثالية لكل امرأة راقية!</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">ن</div>
+        <div>
+          <span class="testimonial-name">نور الهدى قاسمي</span>
+          <span class="testimonial-city">قسنطينة</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INSTAGRAM ══ -->
+<section id="instagram">
+  <span class="insta-handle reveal">@lefna_store</span>
+  <h2 class="insta-title reveal">تابعينا على إنستغرام</h2>
+
+  <div class="insta-grid">
+    <div class="insta-item reveal reveal-delay-1">
+      <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=300&fit=crop" alt="Instagram 1">
+      <div class="insta-overlay">
+        <svg class="insta-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+    </div>
+    <div class="insta-item reveal reveal-delay-2">
+      <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=300&h=300&fit=crop" alt="Instagram 2">
+      <div class="insta-overlay">
+        <svg class="insta-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+    </div>
+    <div class="insta-item reveal reveal-delay-3">
+      <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=300&fit=crop" alt="Instagram 3">
+      <div class="insta-overlay">
+        <svg class="insta-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+    </div>
+    <div class="insta-item reveal reveal-delay-4">
+      <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop" alt="Instagram 4">
+      <div class="insta-overlay">
+        <svg class="insta-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+    </div>
+    <div class="insta-item reveal reveal-delay-4">
+      <img src="https://images.unsplash.com/photo-1614179689702-355944cd0918?w=300&h=300&fit=crop" alt="Instagram 5">
+      <div class="insta-overlay">
+        <svg class="insta-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<section id="newsletter">
+  <span class="newsletter-label reveal">Newsletter — تواصلي معنا</span>
+  <h2 class="newsletter-title reveal">كوني أول من تعرف</h2>
+  <p class="newsletter-sub reveal">Soyez la première à découvrir nos nouvelles collections.</p>
+  <div class="newsletter-form reveal">
+    <input 
+      class="newsletter-input" 
+      type="email" 
+      placeholder="votre@email.com"
+      aria-label="Email address"
+    >
+    <button class="newsletter-btn">اشتركي</button>
+  </div>
+  <p class="newsletter-privacy reveal">لن نشارك بريدك الإلكتروني مع أي طرف ثالث — خصوصيتك مهمة لنا</p>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-circle">
+      <svg viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="40" y="16" font-family="serif" font-size="13" fill="#C9A96E" text-anchor="middle" font-style="italic">لفنا</text>
+        <text x="40" y="36" font-family="serif" font-size="20" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="1">LEFNA</text>
+        <text x="40" y="46" font-family="sans-serif" font-size="5.5" fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="3">STORE</text>
+      </svg>
+    </div>
+    <span class="footer-tagline">حقائب تليق بك</span>
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-socials">
+    <!-- Instagram -->
+    <a href="#" class="footer-social-btn" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <!-- TikTok -->
+    <a href="#" class="footer-social-btn" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.01-.08z"/></svg>
+    </a>
+    <!-- WhatsApp -->
+    <a href="#" class="footer-social-btn" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </a>
+  </div>
+
+  <p class="footer-copy">© 2026 LEFNA — جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+  // Custom Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Cursor hover effects
+  document.querySelectorAll('a, button, .product-card, .insta-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      cursor.style.background = 'var(--gold)';
+      ring.style.width = '54px';
+      ring.style.height = '54px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      cursor.style.background = 'var(--burgundy)';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // Wishlist toggle
+  document.querySelectorAll('.product-wishlist').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
+      btn.style.background = btn.textContent === '♥' ? 'var(--rose)' : '';
+      btn.style.color = btn.textContent === '♥' ? 'white' : 'var(--rose)';
+      btn.style.borderColor = btn.textContent === '♥' ? 'var(--rose)' : '';
+    });
+  });
+
+  // Newsletter form
+  const newsletterForm = document.querySelector('.newsletter-form');
+  const newsletterBtn = document.querySelector('.newsletter-btn');
+  newsletterBtn.addEventListener('click', () => {
+    const input = document.querySelector('.newsletter-input');
+    if (input.value && input.value.includes('@')) {
+      newsletterBtn.textContent = '✓ تم الاشتراك';
+      newsletterBtn.style.background = '#4CAF50';
+      input.value = '';
+      setTimeout(() => {
+        newsletterBtn.textContent = 'اشتركي';
+        newsletterBtn.style.background = '';
+      }, 3000);
+    }
+  });
+</script>
+</body>
+</html>
